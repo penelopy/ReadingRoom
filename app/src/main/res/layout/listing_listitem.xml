@@ -13,7 +13,7 @@
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/bookImage"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_alignParentBottom="true"
@@ -25,27 +25,37 @@
 
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/bookDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/icon"
+        android:layout_toRightOf="@id/bookImage"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/firstLine"
+        android:id="@+id/bookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
+        android:layout_above="@id/bookDescription"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
-        android:gravity="center_vertical"
-        android:textSize="16sp" />
+        android:layout_toRightOf="@id/bookImage"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/bookAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/bookImage"
+        android:layout_below="@id/bookTitle"
+        android:layout_marginTop="1dip"
+        android:layout_alignWithParentIfMissing="true"
+        android:textSize="13sp" />
 
 
 </RelativeLayout> 

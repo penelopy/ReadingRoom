@@ -2,25 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
+
+
     <ImageView
-        android:id="@id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/bookImage"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:background="@color/grey"/>
 
     <TextView
-        android:id="@id/rank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:id="@+id/bookTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookImage"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="12dip"
+        android:gravity="center_vertical"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@id/firstLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/bookDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/bookTitle"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:layout_marginTop="12dip"
+        android:layout_marginLeft="30dp"
+        android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/rank"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookTitle"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textSize="10sp" />
 
 </RelativeLayout>

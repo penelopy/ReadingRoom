@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -28,7 +29,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class LoadAndDisplayListActivity extends Activity {
+
+public class ChBookListActivity extends Activity {
 
 
     @Override
@@ -36,6 +38,7 @@ public class LoadAndDisplayListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listings);
         new LoadBooksTask().execute();
+
     }
 
     private class LoadBooksTask extends AsyncTask<Void, Void, Book[]> {
@@ -47,7 +50,7 @@ public class LoadAndDisplayListActivity extends Activity {
 
         @Override
         protected void onPostExecute(Book[] books) {
-            ListAdapter adapter = new ArrayAdapter<Book>(LoadAndDisplayListActivity.this, R.layout.listing_listitem, R.id.firstLine, books) {
+            final ListAdapter adapter = new ArrayAdapter<Book>(ChBookListActivity.this, R.layout.listing_listitem, R.id.bookTitle, books) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
@@ -60,15 +63,15 @@ public class LoadAndDisplayListActivity extends Activity {
                     TextView rank = (TextView) view.findViewById(R.id.rank);
                     rank.setText(book.getRank());
 
-                    TextView firstLine = (TextView) view.findViewById(R.id.firstLine);
-                    firstLine.setText(book.getTitle());
+                    TextView bookTitle = (TextView) view.findViewById(R.id.bookTitle);
+                    bookTitle.setText(book.getTitle());
 
-//                    TextView secondLine = (TextView) view.findViewById(R.id.secondLine);
-//                    secondLine.setText(book.getDescription());
+//                    TextView bookDescription = (TextView) view.findViewById(R.id.bookDescription);
+//                    bookDescription.setText(book.getDescription());
 
-                    ImageView icon = (ImageView) view.findViewById(R.id.icon);
+                    ImageView icon = (ImageView) view.findViewById(R.id.bookImage);
 
-                    Picasso.with(LoadAndDisplayListActivity.this).load(book.getImageUrl()).fit().into(icon);
+                    Picasso.with(ChBookListActivity.this).load(book.getImageUrl()).fit().into(icon);
 
                     return view;
                 }
@@ -76,6 +79,15 @@ public class LoadAndDisplayListActivity extends Activity {
 
             ListView listings = (ListView) findViewById(R.id.listings_list);
             listings.setAdapter(adapter);
+            listings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Book book = (Book) adapter.getItem(position);
+                    Intent intent = new Intent(ChBookListActivity.this, BookDetailActivity.class);
+                    Book.addToIntent(intent, book);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -89,7 +101,7 @@ public class LoadAndDisplayListActivity extends Activity {
         String jsonStr;
 
         try {
-            URL url = new URL("http://api.nytimes.com/svc/books/v3/lists/Picture-Books?api-key=8c0bbaab2101697d4147648c25ca2158:16:73271783");
+            URL url = new URL("http://api.nytimes.com/svc/books/v3/lists/Childrens-Books?api-key=8c0bbaab2101697d4147648c25ca2158:16:73271783");
 
             // Create the request to NYTimes API, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -149,7 +161,7 @@ public class LoadAndDisplayListActivity extends Activity {
 
             public void onFinish() {
                 // change screens
-                Intent intent = new Intent(LoadAndDisplayListActivity.this, DetailActivity.class);
+                Intent intent = new Intent(ChBookListActivity.this, BookDetailActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -38,7 +38,16 @@ public class SelectBookListActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectBookListActivity.this, LoadAndDisplayListActivity.class);
+                Intent intent = new Intent(SelectBookListActivity.this, BookListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button topChildrensBooks = (Button) findViewById(R.id.get_top_childrens_books_button);
+        topChildrensBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                Intent intent = new Intent(SelectBookListActivity.this, ChBookListActivity.class);
                 startActivity(intent);
             }
         });
@@ -54,7 +63,7 @@ public class SelectBookListActivity extends Activity {
 
             public void onFinish() {
                 // change screens
-                Intent intent = new Intent(SelectBookListActivity.this, LoadAndDisplayListActivity.class);
+                Intent intent = new Intent(SelectBookListActivity.this, BookListActivity.class);
                 startActivity(intent);
                 finish();
             }
