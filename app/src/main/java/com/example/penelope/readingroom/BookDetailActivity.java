@@ -20,15 +20,19 @@ public class BookDetailActivity extends Activity {
         TextView bookTitle = (TextView) findViewById(R.id.bookTitle);
         bookTitle.setText(book.getTitle());
 
-//        TextView rank = (TextView) findViewById(R.id.rank);
-//        rank.setText(book.getRank());
+        TextView bookAuthor = (TextView) findViewById(R.id.bookAuthor);
+        bookAuthor.setText(book.getAuthor());
+
+        TextView bookDescription = (TextView) findViewById(R.id.bookDescription);
+        bookDescription.setText(book.getDescription());
+
+        TextView rank = (TextView) findViewById(R.id.rank);
+        rank.setText(book.getRank());
 
         ImageView icon = (ImageView) findViewById(R.id.bookImage);
 
         Picasso.with(BookDetailActivity.this).load(book.getImageUrl()).fit().into(icon);
 
-        TextView bookDescription = (TextView) findViewById(R.id.bookDescription);
-        bookDescription.setText(book.getDescription());
     }
 
 }

@@ -8,25 +8,44 @@ import org.json.JSONObject;
 public class Book {
 
     static final String BOOK_KEY = "book_key";
-    private final String title;
+    public String title;
     private final String description;
     private final String rank;
     private final String imageUrl;
     private final String author;
+    private final String isbn;
+//    private final String category;
 
     private final String backingJson;
 
+//    public Book(JSONObject data, String category) throws JSONException {
+//       this(data.getString("title"), data.getString("description"), data.getString("book_image"), data.getString("rank"), data.getString("author"), data.getString("isbn"), category, data.toString());
+//    }
+
     public Book(JSONObject data) throws JSONException {
-       this(data.getString("title"), data.getString("description"), data.getString("book_image"), data.getString("rank"), data.getString("author"), data.toString());
+        this(data.getString("title"), data.getString("description"), data.getString("book_image"), data.getString("rank"), data.getString("author"), data.getString("primary_isbn10"), data.toString());
     }
 
-    public Book(String title, String description, String imageUrl, String rank, String author, String backingJson) {
+//    public Book(String title, String description, String imageUrl, String rank, String author, String isbn, String bookCategory, String backingJson) {
+//        this.title = title;
+//        this.description = description;
+//        this.imageUrl = imageUrl;
+//        this.rank = rank;
+//        this.isbn = isbn;
+//        this.author = author;
+//        this.backingJson = backingJson;
+//        this.category = bookCategory;
+//    }
+
+    public Book(String title, String description, String imageUrl, String rank, String author, String isbn, String backingJson) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
         this.rank = rank;
+        this.isbn = isbn;
         this.author = author;
         this.backingJson = backingJson;
+//        this.category = null;
     }
 
     public String getDescription() {
@@ -47,6 +66,10 @@ public class Book {
 
     public String getAuthor() { return author; }
 
+    public String getISBN() { return isbn; }
+
+//    public String getCategory() { return category; }
+
     public String backingJson() {
         return backingJson;
     }
@@ -66,4 +89,5 @@ public class Book {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-
-
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingLeft="30dp" android:paddingRight="30dp">
 
     <ImageView
         android:id="@+id/bookImage"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
         android:background="@color/grey"/>
 
     <TextView
@@ -18,29 +15,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bookImage"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="12dip"
         android:gravity="center_vertical"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/bookDescription"
+        android:id="@+id/bookAuthor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/bookTitle"
-        android:ellipsize="marquee"
         android:singleLine="true"
         android:layout_marginTop="12dip"
-        android:layout_marginLeft="30dp"
         android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/bookDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bookAuthor"
+        android:singleLine="true"
+        android:layout_marginTop="12dip"
+        android:textSize="12sp" />
+
 
     <TextView
         android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bookTitle"
-        android:ellipsize="marquee"
+        android:layout_toRightOf="@id/bookImage"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
         android:singleLine="true"
-        android:textSize="10sp" />
+        android:textSize="30sp" />
 
 </RelativeLayout>
