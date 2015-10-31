@@ -24,14 +24,21 @@ public class BookListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listings);
-        new LoadBooksTask().execute();
+
+        int value = getIntent().getIntExtra("category", Book.Category.PICTURE_BOOKS.ordinal());
+        Book.Category category = Book.Category.values()[value];
+
+        new LoadBooksTask().execute(category);
     }
 
-    private class LoadBooksTask extends AsyncTask<Void, Void, List<Book>> {
+    private class LoadBooksTask extends AsyncTask<Book.Category, Void, List<Book>> {
 
         @Override
-        protected List<Book> doInBackground(Void... params) {
-            return BookConnector.getInstance(BookListActivity.this).getAllBooks();
+        protected List<Book> doInBackground(Book.Category... params) {
+//            return BookConnector.getInstance(BookListActivity.this).getAllBooks();
+//            String input = "Picture Books";
+
+            return BookConnector.getInstance(BookListActivity.this).getBooksByCategory(params[0]);
         }
 
         @Override
@@ -49,8 +56,8 @@ public class BookListActivity extends Activity {
                     TextView bookTitle = (TextView) view.findViewById(R.id.bookTitle);
                     bookTitle.setText(book.getTitle());
 
-                    TextView author = (TextView) view.findViewById(R.id.bookAuthor);
-                    author.setText(book.getAuthor());
+//                    TextView author = (TextView) view.findViewById(R.id.bookAuthor);
+//                    author.setText(book.getAuthor());
 
                     ImageView icon = (ImageView) view.findViewById(R.id.bookImage);
 

@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.penelope.readingroom.model.Book;
+
 
 public class SelectBookListActivity extends Activity {
     @Override
@@ -37,15 +39,18 @@ public class SelectBookListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SelectBookListActivity.this, BookListActivity.class);
+                intent.putExtra("category", Book.Category.PICTURE_BOOKS.ordinal());
+
                 startActivity(intent);
             }
         });
 
-        Button topChildrensBooks = (Button) findViewById(R.id.get_top_childrens_books_button);
-        topChildrensBooks.setOnClickListener(new View.OnClickListener() {
+        Button topChapterBooks = (Button) findViewById(R.id.get_top_chapter_books_button);
+        topChapterBooks.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(SelectBookListActivity.this, BookListActivity.class);
+                intent.putExtra("category", Book.Category.CHAPTER_BOOKS.ordinal());
                 startActivity(intent);
             }
         });
@@ -55,6 +60,7 @@ public class SelectBookListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SelectBookListActivity.this, BookListActivity.class);
+                intent.putExtra("category", Book.Category.YOUNG_ADULT.ordinal());
                 startActivity(intent);
             }
         });

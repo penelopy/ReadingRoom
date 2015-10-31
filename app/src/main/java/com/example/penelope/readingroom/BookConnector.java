@@ -18,7 +18,6 @@ public class BookConnector {
         Log.d(TAG, "BookConnector constructor");
         this.db = BookDbHelper.getInstance(context);
         this.api = new NYTimesAPIClient();
-
     }
 
     public static synchronized BookConnector getInstance(Context context) {
@@ -42,7 +41,18 @@ public class BookConnector {
             return books;
         }
     }
+
+    public List<Book> getBooksByCategory(Book.Category category) {
+        if (db.isCurrent()) {
+            Log.d(TAG, String.valueOf(category));
+            return db.getBooksByCategory(category);
+        }
+        else {
+            List<Book> books = api.getAllBooks();  //this should throw an exception/error
+            db.save(books);
+            return books;
+        }
+    }
 }
 
 
-//

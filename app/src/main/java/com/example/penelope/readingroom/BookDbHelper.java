@@ -17,7 +17,7 @@ import java.util.List;
 public class BookDbHelper extends SQLiteOpenHelper {
     // Database info
     public static final String DATABASE_NAME = "Books.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // Using singleton pattern
     private static BookDbHelper instance;
@@ -94,7 +94,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
         public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_RANK = "rank";
         public static final String COLUMN_NAME_IMAGE_URL = "image_url";
-        public static final String COLUMN_NAME_BACKINGJSON = "backing_json";
+        public static final String COLUMN_NAME_CATEGORY = "category";
     }
 
     private static final String DATABASE_TABLE_CREATE =
@@ -104,9 +104,8 @@ public class BookDbHelper extends SQLiteOpenHelper {
                     FeedEntry.COLUMN_NAME_AUTHOR + " TEXT, " +
                     FeedEntry.COLUMN_NAME_DESCRIPTION + " TEXT, " +
                     FeedEntry.COLUMN_NAME_IMAGE_URL + " TEXT, " +
-                    FeedEntry.COLUMN_NAME_BACKINGJSON + " TEXT, " +
-                    FeedEntry.COLUMN_NAME_RANK + " TEXT)";
-
+                    FeedEntry.COLUMN_NAME_RANK + " TEXT, " +
+                    FeedEntry.COLUMN_NAME_CATEGORY + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedEntry.TABLE_NAME;
@@ -127,19 +126,25 @@ public class BookDbHelper extends SQLiteOpenHelper {
 
         try {
             for (Book book : books) {
-
                 ContentValues values = new ContentValues();
                 values.put(FeedEntry.COLUMN_NAME_ISBN, book.getISBN());
                 values.put(FeedEntry.COLUMN_NAME_AUTHOR, book.getAuthor());
                 values.put(FeedEntry.COLUMN_NAME_TITLE, book.getTitle());
                 values.put(FeedEntry.COLUMN_NAME_DESCRIPTION, book.getDescription());
-                values.put(FeedEntry.COLUMN_NAME_IMAGE_URL, book.getImageUrl());
+                if (book.getImageUrl() == null) {
+                    Log.d(TAG, book.getImageUrl());
+                    values.put(FeedEntry.COLUMN_NAME_IMAGE_URL, "https://drawception.com/pub/panels/2012/3-30/gLMH84DyGR-6.png");
+                }
+                else {
+                    values.put(FeedEntry.COLUMN_NAME_IMAGE_URL, book.getImageUrl());
+                }
                 values.put(FeedEntry.COLUMN_NAME_RANK, book.getRank());
-                values.put(FeedEntry.COLUMN_NAME_BACKINGJSON, book.backingJson());
+                values.put(FeedEntry.COLUMN_NAME_CATEGORY, book.getCategory());
                 db.insertOrThrow(FeedEntry.TABLE_NAME, null, values);
             }
             db.setTransactionSuccessful();
             Log.d(TAG, "Inserted " + books.size() + " books.");
+            Log.d(TAG, "Table columns" + DATABASE_TABLE_CREATE);
         } catch (Exception e) {
             Log.e(TAG, "Error while trying to add books to database", e);
         } finally {
@@ -149,7 +154,7 @@ public class BookDbHelper extends SQLiteOpenHelper {
     }
 
     public List<Book> getAllBooks() {
-        Log.d(TAG, "getAllBooks()");
+//        Log.d(TAG, "getAllBooks()");
         List<Book> books = new ArrayList<>();
 
         String BOOKS_SELECT_QUERY = "SELECT * FROM " + FeedEntry.TABLE_NAME;
@@ -159,9 +164,9 @@ public class BookDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(BOOKS_SELECT_QUERY, null);
         try {
-            Log.d(TAG, "getAllBooks() about to moveToFirst()");
+//            Log.d(TAG, "getAllBooks() about to moveToFirst()");
             if (cursor.moveToFirst()) {
-                Log.d(TAG, "getAllBooks() just moved to first");
+//                Log.d(TAG, "getAllBooks() just moved to first");
                 do {
                     String title = cursor.getString(cursor.getColumnIndex(KEY_BOOK_TITLE));
                     String description = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_DESCRIPTION));
@@ -169,8 +174,8 @@ public class BookDbHelper extends SQLiteOpenHelper {
                     String rank = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_RANK));
                     String author = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_AUTHOR));
                     String isbn = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_ISBN));
-                    String backingJson = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_BACKINGJSON)); //delete field after refactor
-                    Book newBook = new Book(title, description, imageUrl, rank, author, isbn, backingJson);
+                    String category = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_CATEGORY));
+                    Book newBook = new Book(title, description, imageUrl, rank, author, isbn, category);
 
                     books.add(newBook);
                 } while (cursor.moveToNext());
@@ -185,45 +190,46 @@ public class BookDbHelper extends SQLiteOpenHelper {
         return books;
     }
 
-//    public List<Book> getBooksByCategory() {
+    public List<Book> getBooksByCategory(Book.Category category) {
 //        Log.d(TAG, "getBooksByCategory()");
-//        List<Book> books = new ArrayList<>();
-//
-//        String BOOKS_SELECT_QUERY =
-//                String.format("SELECT * FROM %s WHERE category = %s",
-//                        FeedEntry.TABLE_NAME,
-//                        "picture_books");
-//
-//        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
-//        // disk space scenarios)
-//        SQLiteDatabase db = getReadableDatabase();
-//        Cursor cursor = db.rawQuery(BOOKS_SELECT_QUERY, null);
-//        try {
-//            if (cursor.moveToFirst()) {
-//                do {
-//                    String title = cursor.getString(cursor.getColumnIndex(KEY_BOOK_TITLE));
-//                    String description = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_DESCRIPTION));
-//                    String imageUrl = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_IMAGE_URL));
-//                    String rank = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_RANK));
-//                    String author = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_AUTHOR));
-//                    String isbn = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_ISBN));
-//                    String backingJson = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_BACKINGJSON)); //delete field after refactor
-//                    Book newBook = new Book(title, description, imageUrl, rank, author, isbn, backingJson);
-//
-//                    books.add(newBook);
-//                } while (cursor.moveToNext());
-//            }
-//        } catch (Exception e) {
-//            Log.e(TAG, "Error while trying to get books from database", e);
-//        } finally {
-//            if (cursor != null && !cursor.isClosed()) {
-//                cursor.close();
-//            }
-//        }
-//        return books;
-//    }
+        List<Book> books = new ArrayList<>();
+
+        String BOOKS_SELECT_QUERY =
+                String.format("SELECT * FROM %s WHERE %s = \"%s\"",
+                        FeedEntry.TABLE_NAME,
+                        FeedEntry.COLUMN_NAME_CATEGORY,
+                        category.listName);
+
+        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
+        // disk space scenarios)
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(BOOKS_SELECT_QUERY, null);
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    String title = cursor.getString(cursor.getColumnIndex(KEY_BOOK_TITLE));
+                    String description = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_DESCRIPTION));
+                    String imageUrl = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_IMAGE_URL));
+                    String rank = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_RANK));
+                    String author = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_AUTHOR));
+                    String isbn = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_ISBN));
+                    String categoryx = cursor.getString(cursor.getColumnIndex(FeedEntry.COLUMN_NAME_CATEGORY));
+                    Book newBook = new Book(title, description, imageUrl, rank, author, isbn, categoryx);
+
+                    books.add(newBook);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error while trying to get books from database", e);
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return books;
+    }
 
 
 }
 
-}
+

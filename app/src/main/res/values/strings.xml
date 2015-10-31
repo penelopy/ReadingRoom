@@ -9,8 +9,8 @@
 
     <string name="picture_book_header">Picture Books</string>
     <string name="get_top_movies">View Top Picture Books</string>
-    <string name="childrens_books_header">Children\'s Books</string>
-    <string name="get_top_childrens_books">View Top Children\'s Books</string>
+    <string name="childrens_books_header">Chapter Books</string>
+    <string name="get_top_childrens_books">View Top Chapter Books</string>
     <string name="young_adult_books_header">Young Adult Books</string>
     <string name="get_top_young_adult_books">View Top Young Adult Books</string>
 

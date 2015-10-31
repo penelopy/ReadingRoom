@@ -19,7 +19,9 @@ import java.util.List;
 
 public class NYTimesAPIClient {
     public List<String> apiUrlList = new ArrayList<String>();
+    private static final String TAG = "NYTimesAPIClient";
 
+    //TODO check Children's Book url
     public NYTimesAPIClient() {
         apiUrlList.add("http://api.nytimes.com/svc/books/v3/lists/Picture-Books?api-key=8c0bbaab2101697d4147648c25ca2158:16:73271783");
         apiUrlList.add("http://api.nytimes.com/svc/books/v3/lists/chapter-books?api-key=8c0bbaab2101697d4147648c25ca2158:16:73271783");
@@ -81,11 +83,12 @@ public class NYTimesAPIClient {
             JSONObject jsonResponse = new JSONObject(jsonStr);
             JSONObject jsonResults = jsonResponse.getJSONObject("results");
             JSONArray jsonBooks = jsonResults.getJSONArray("books");
+            Log.d(TAG, jsonResults.getString("list_name"));
 
             List<Book> result = new ArrayList<Book>();
 
             for (int i = 0; i < jsonBooks.length(); i++) {
-                result.add(new Book(jsonBooks.getJSONObject(i)));
+                result.add(new Book(jsonBooks.getJSONObject(i), jsonResults.getString("list_name")));
             }
 
             return result;
