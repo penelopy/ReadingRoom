@@ -7,18 +7,11 @@
     <string name="get_started">Get Started!</string>
     <string name="enter_name_label">Enter your name below</string>
 
-    <string name="picture_book_header">Picture Books</string>
-    <string name="get_top_movies">View Top Picture Books</string>
-    <string name="childrens_books_header">Chapter Books</string>
-    <string name="get_top_childrens_books">View Top Chapter Books</string>
-    <string name="young_adult_books_header">Young Adult Books</string>
-    <string name="get_top_young_adult_books">View Top Young Adult Books</string>
+    <string name="get_top_picture_books">Picture Books</string>
+    <string name="get_top_childrens_books">Chapter Books</string>
+    <string name="get_top_young_adult_books">Young Adult Books</string>
+    <string name="page_description">NY Times Bestsellers</string>
 
-    <string name="listings_header">Top Movies</string>
-    <string name="movie_one">First Movie Title</string>
-    <string name="movie_two">Second Movie Title</string>
-    <string name="movie_three">Third Movie Title</string>
-    <string name="get_more_movies">Show more movie listings</string>
 
     <string name="signout_button">Sign Out</string>
     <string name="picture_book_detail_header">Top 10 Picture Books</string>

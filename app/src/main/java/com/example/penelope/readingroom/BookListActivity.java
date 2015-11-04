@@ -20,10 +20,14 @@ import java.util.List;
 
 public class BookListActivity extends Activity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listings);
+
+
 
         int value = getIntent().getIntExtra("category", Book.Category.PICTURE_BOOKS.ordinal());
         Book.Category category = Book.Category.values()[value];
@@ -32,34 +36,32 @@ public class BookListActivity extends Activity {
     }
 
     private class LoadBooksTask extends AsyncTask<Book.Category, Void, List<Book>> {
-
         @Override
         protected List<Book> doInBackground(Book.Category... params) {
 //            return BookConnector.getInstance(BookListActivity.this).getAllBooks();
-//            String input = "Picture Books";
 
             return BookConnector.getInstance(BookListActivity.this).getBooksByCategory(params[0]);
         }
 
         @Override
-        protected void onPostExecute(List<Book> books) {
-            final ListAdapter adapter = new ArrayAdapter<Book>(BookListActivity.this, R.layout.listing_listitem, R.id.bookTitle, books) {
+        protected void onPostExecute(final List<Book> books) {
+            final ListAdapter adapter = new ArrayAdapter<Book>(BookListActivity.this,
+                    R.layout.listing_listitem, R.id.bookTitle, books) {
+
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
+
+
                     View view = super.getView(position, convertView, parent);
 
                     Book book = getItem(position);
 
                     TextView rank = (TextView) view.findViewById(R.id.rank);
-                    rank.setText(book.getRank());
-
                     TextView bookTitle = (TextView) view.findViewById(R.id.bookTitle);
-                    bookTitle.setText(book.getTitle());
-
-//                    TextView author = (TextView) view.findViewById(R.id.bookAuthor);
-//                    author.setText(book.getAuthor());
-
                     ImageView icon = (ImageView) view.findViewById(R.id.bookImage);
+
+                    rank.setText(book.getRank());
+                    bookTitle.setText(book.getTitle());
 
                     Picasso.with(BookListActivity.this).load(book.getImageUrl()).fit().into(icon);
 
@@ -72,9 +74,9 @@ public class BookListActivity extends Activity {
             listings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Book book = (Book) adapter.getItem(position);
                     Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
-                    Book.addToIntent(intent, book);
+                    Book.addToIntent(intent, books, position);
+
                     startActivity(intent);
                 }
             });

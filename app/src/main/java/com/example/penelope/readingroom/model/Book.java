@@ -5,6 +5,9 @@ import android.content.Intent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Book {
 
     public static final String TITLE_KEY = "title";
@@ -14,6 +17,8 @@ public class Book {
     public static final String AUTHOR_KEY = "author";
     public static final String ISBN_KEY = "isbn";
     public static final String CATEGORY_KEY = "category";
+    public static final String CURRENT_INDEX_KEY = "index";
+    public static final String BOOK_COUNT = "bookCount";
     public String title;
     private final String description;
     private final String rank;
@@ -21,6 +26,7 @@ public class Book {
     private final String author;
     private final String isbn;
     private final String category;
+
 
     public enum Category {
         PICTURE_BOOKS("Picture Books"),
@@ -96,28 +102,40 @@ public class Book {
 //        return imageUrl;
 //    }
 
-    public static void addToIntent(Intent intent, Book book) {
-        intent.putExtra(TITLE_KEY, book.title);
-        intent.putExtra(DESCRIPTION_KEY, book.description);
-        intent.putExtra(RANK_KEY, book.rank);
-        intent.putExtra(IMAGE_URL_KEY, book.imageUrl);
-        intent.putExtra(AUTHOR_KEY, book.author);
-        intent.putExtra(ISBN_KEY, book.isbn);
-        intent.putExtra(CATEGORY_KEY, book.category);
+    public static void addToIntent(Intent intent, List<Book> books, int currentIndex) {
+        int index = 0;
+        intent.putExtra(CURRENT_INDEX_KEY, currentIndex);
+        intent.putExtra(BOOK_COUNT, books.size());
+        for (Book book: books) {
+            intent.putExtra(TITLE_KEY + index, book.title);
+            intent.putExtra(DESCRIPTION_KEY + index, book.description);
+            intent.putExtra(RANK_KEY + index, book.rank);
+            intent.putExtra(IMAGE_URL_KEY + index, book.imageUrl);
+            intent.putExtra(AUTHOR_KEY + index, book.author);
+            intent.putExtra(ISBN_KEY + index, book.isbn);
+            intent.putExtra(CATEGORY_KEY + index, book.category);
+            index++;
+        }
     }
 
-    public static Book readFromIntent(Intent intent) {
-        if (!intent.hasExtra(TITLE_KEY)) {
-            throw new IllegalStateException("Intent does not include book.");
-        }
+    public static List<Book> readFromIntent(Intent intent) {
+        List<Book> books = new ArrayList<>();
+        int count = intent.getIntExtra(BOOK_COUNT, 0);
 
-        return new Book(intent.getStringExtra(TITLE_KEY),
-                intent.getStringExtra(DESCRIPTION_KEY),
-                intent.getStringExtra(IMAGE_URL_KEY),
-                intent.getStringExtra(RANK_KEY),
-                intent.getStringExtra(AUTHOR_KEY),
-                intent.getStringExtra(ISBN_KEY),
-                intent.getStringExtra(CATEGORY_KEY));
+        for (int i = 0; i < count; i++) {
+            books.add(new Book(intent.getStringExtra(TITLE_KEY + i),
+                    intent.getStringExtra(DESCRIPTION_KEY + i),
+                    intent.getStringExtra(IMAGE_URL_KEY + i),
+                    intent.getStringExtra(RANK_KEY + i),
+                    intent.getStringExtra(AUTHOR_KEY + i),
+                    intent.getStringExtra(ISBN_KEY + i),
+                    intent.getStringExtra(CATEGORY_KEY + i)));
+        }
+        return books;
+    }
+
+    public static int readCurrentIndex(Intent intent) {
+        return intent.getIntExtra(CURRENT_INDEX_KEY, 0);
     }
 
 }

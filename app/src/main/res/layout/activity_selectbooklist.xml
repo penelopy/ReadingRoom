@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/preview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
     <TextView
         android:id="@+id/welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"/>
+        android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/picture_book_header"
+        android:id="@+id/page_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
+        android:text="@string/page_description"
         android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_below="@id/welcome_message"
-        android:text="@string/picture_book_header"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"/>
+        android:textSize="18dp" />
 
     <Button
         android:id="@+id/get_top_picture_books_button"
@@ -30,20 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@id/picture_book_header"
-        android:text="@string/get_top_movies" />
-
-    <TextView
-        android:id="@+id/childrens_books_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_below="@id/get_top_picture_books_button"
-        android:text="@string/childrens_books_header"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
-        android:textColor="@android:color/black"/>
+        android:layout_below="@id/page_description"
+        android:text="@string/get_top_picture_books" />
 
     <Button
         android:id="@+id/get_top_chapter_books_button"
@@ -51,20 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/get_top_childrens_books"
-        android:layout_below="@id/childrens_books_header"/>
-
-    <TextView
-        android:id="@+id/young_adult_books_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_below="@id/get_top_chapter_books_button"
-        android:layout_marginTop="10dp"
-        android:text="@string/young_adult_books_header"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"/>
+        android:layout_below="@id/get_top_picture_books_button"/>
 
     <Button
         android:id="@+id/get_young_adult_books_button"
@@ -72,8 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/get_top_young_adult_books"
-        android:layout_below="@id/young_adult_books_header"/>
+        android:layout_below="@id/get_top_chapter_books_button"/>
 
 
     <Button
@@ -82,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/signout_button"
         android:layout_alignParentBottom="true"/>
 
