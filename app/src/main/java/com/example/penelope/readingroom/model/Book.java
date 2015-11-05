@@ -39,15 +39,6 @@ public class Book {
         Category(String listName) {
             this.listName = listName;
         }
-
-//        public static Category fromListName(String listName) {
-//            for (Category c : values()) {
-//                if (c.listName.equals(listName)) {
-//                    return c;
-//                }
-//            }
-//            throw new IllegalArgumentException("No such listName: " + listName);
-//        }
     }
 
     public Book(JSONObject data, String category) throws JSONException {
@@ -137,5 +128,4 @@ public class Book {
     public static int readCurrentIndex(Intent intent) {
         return intent.getIntExtra(CURRENT_INDEX_KEY, 0);
     }
-
 }

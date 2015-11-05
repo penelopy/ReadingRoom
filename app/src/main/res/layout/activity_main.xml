@@ -12,8 +12,8 @@
         android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="READING ROOM"
         android:textSize="25sp"
+        android:text="@string/app_name"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 

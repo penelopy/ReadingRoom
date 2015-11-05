@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.ImageView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends Activity {
@@ -41,33 +39,3 @@ public class MainActivity extends Activity {
     }
 }
 
-
-
-
-
-//public class MainActivity extends Activity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        setContentView(R.layout.activity_main);
-//        changeScreen();
-//
-//    }
-//
-//    public void changeScreen() {
-//        new CountDownTimer(2000, 1000) {
-//
-//            public void onTick(long millisUntilFinished) {
-//            }
-//
-//            public void onFinish() {
-//                // change screens
-//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        }.start();
-//    }
-//}

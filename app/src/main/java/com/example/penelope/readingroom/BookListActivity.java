@@ -20,8 +20,6 @@ import java.util.List;
 
 public class BookListActivity extends Activity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
