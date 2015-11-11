@@ -5,14 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.example.penelope.readingroom.model.Book;
-import com.squareup.picasso.Picasso;
 
 
 public class SelectBookListActivity extends Activity {
@@ -21,15 +16,8 @@ public class SelectBookListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectbooklist);
 
-        ImageView icon = (ImageView)findViewById(R.id.preview);
-        Picasso.with(SelectBookListActivity.this).load("http://moda-fashion.biz/wp-content/uploads/2015/01/wpid-White-Radial-Gradient-Background-2015-2016-0.jpg").fit().into(icon);
-
-
-        TextView welcome = (TextView) findViewById(R.id.welcome_message);
-        welcome.setText("Welcome " + Preferences.getUsername(this));
-        YoYo.with(Techniques.SlideInLeft)
-                .duration(700)
-                .playOn(findViewById(R.id.welcome_message));
+//        ImageView icon = (ImageView)findViewById(R.id.preview);
+//        Picasso.with(SelectBookListActivity.this).load("http://moda-fashion.biz/wp-content/uploads/2015/01/wpid-White-Radial-Gradient-Background-2015-2016-0.jpg").fit().into(icon);
 
         Button signout = (Button) findViewById(R.id.signout_button);
         signout.setOnClickListener(new View.OnClickListener() {

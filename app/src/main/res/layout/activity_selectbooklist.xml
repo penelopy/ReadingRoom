@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent">
-
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <ImageView
         android:id="@+id/preview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:background="@color/grey50"/>
 
     <TextView
         android:id="@+id/welcome_message"
@@ -21,10 +22,12 @@
         android:id="@+id/page_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/page_description"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_below="@id/welcome_message"
+        android:text="@string/page_description"
+        android:textStyle="italic"
+        android:typeface="serif"
         android:textSize="18dp" />
 
     <Button
@@ -35,17 +38,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/page_description"
-        android:text="@string/get_top_picture_books" />
-
-    <Button
-        android:id="@+id/get_top_chapter_books_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/get_top_childrens_books"
-        android:layout_below="@id/get_top_picture_books_button"/>
+        android:text="@string/get_top_picture_books"
+        android:background="@drawable/button_shadow"
+        android:elevation="16dp"/>
 
     <Button
         android:id="@+id/get_young_adult_books_button"
@@ -54,9 +49,22 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_below="@id/get_top_picture_books_button"
         android:text="@string/get_top_young_adult_books"
-        android:layout_below="@id/get_top_chapter_books_button"/>
+        android:background="@drawable/button_shadow"
+        android:elevation="16dp"/>
 
+    <Button
+        android:id="@+id/get_top_chapter_books_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/get_young_adult_books_button"
+        android:text="@string/get_top_childrens_books"
+        android:background="@drawable/button_shadow"
+        android:elevation="16dp"/>
 
     <Button
         android:id="@+id/signout_button"
@@ -65,7 +73,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
         android:text="@string/signout_button"
-        android:layout_alignParentBottom="true"/>
+        android:backgroundTint="@color/fbutton_color_silver"/>
 
 </RelativeLayout>

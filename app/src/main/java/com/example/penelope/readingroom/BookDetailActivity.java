@@ -50,9 +50,6 @@ public class BookDetailActivity extends Activity {
         nextButton = (Button) findViewById(R.id.nextButton);
         prevButton = (Button) findViewById(R.id.prevButton);
 
-
-
-
         setBook(books.get(index));
 
         prevButton.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +60,6 @@ public class BookDetailActivity extends Activity {
             }
         });
 
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +67,6 @@ public class BookDetailActivity extends Activity {
                 setBook(books.get(index));
             }
         });
-
-
     }
 
     private void setBook(Book book) {
@@ -83,9 +77,19 @@ public class BookDetailActivity extends Activity {
 
         Picasso.with(BookDetailActivity.this).load(book.getImageUrl()).fit().into(icon);
 
-        YoYo.with(Techniques.Flash)
+        YoYo.with(Techniques.FadeInLeft)
                 .duration(700)
                 .playOn(findViewById(R.id.bookTitle));
+        updateEnabledStates();
+
+        YoYo.with(Techniques.FadeInLeft)
+                .duration(700)
+                .playOn(findViewById(R.id.bookAuthor));
+        updateEnabledStates();
+
+        YoYo.with(Techniques.FadeInLeft)
+                .duration(700)
+                .playOn(findViewById(R.id.bookDescription));
         updateEnabledStates();
     }
 
